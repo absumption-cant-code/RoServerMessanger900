@@ -9,7 +9,8 @@
   "author": "Michael & Sam",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1"
   },
   "devDependencies": {
     "@types/jest": "^28.1.4",
