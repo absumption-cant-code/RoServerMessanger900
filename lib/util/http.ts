@@ -7,8 +7,20 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { getConfig } from './config';
 
 // Types
-/* Defining the type of the options object that is passed into the function. */
-interface requestOptions {
+
+/**
+ * RequestOptions is an object with a required method property and optional apiKey, headers,
+ * contentType, includeCredentials, and resolveWithBoolean properties.
+ * @property {string} method - The HTTP method to use for the request.
+ * @property {string} apiKey - The API key to use for the request.
+ * @property {object} headers - The headers to be sent with the request.
+ * @property {string} contentType - The content type of the request.
+ * @property {boolean} includeCredentials - If true, the request will include credentials (cookies,
+ * basic http auth, etc.)
+ * @property {boolean} resolveWithBoolean - If true, the promise will resolve with a boolean value. If
+ * false, the promise will resolve with the response object.
+ */
+type requestOptions = {
     // Required Params
     method: string,
 
@@ -32,13 +44,13 @@ interface requestOptions {
  * @example http("https://apis.roblox.com/", {method: "GET", includeCredentials: false})
  */
 
-export default function http(url: string, options: requestOptions, body?: (object|string)): Promise<string> {
+export default function http(url: string, options: requestOptions, body?: (object|string)): Promise<AxiosResponse | string> {
     if (!url) { throw new Error('You must provide a url to send the request to.') };
     if (!options.method) { throw new Error('You must provide a method in the options object.') };
     if (!url.includes('roblox.com')) { throw new Error('The URL argument must contain the roblox domain') };
 
     return new Promise((resolve: Function, reject: Function): void => {
-        let config = getConfig(); console.log(config);
+        let config = getConfig();
         let request = axios({
             url: url,
             method: options.method,
